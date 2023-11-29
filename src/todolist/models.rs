@@ -1,19 +1,20 @@
 use serde::{Deserialize, Serialize};
+// FromRow allows deserialization of query results into Rust structs
+use sqlx::FromRow;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, FromRow)]
 pub struct TodolistEntry {
     id: i32,
-    date: i64,
+    complete: bool,
     title: String,
 }
 
 #[derive(Deserialize)]
 pub struct CreateEntryBody {
     pub title: String,
-    pub date: i64,
 }
 
 #[derive(Deserialize)]
-pub struct UpdateEntryBody {
-    pub title: String,
+pub struct CompleteEntryBody {
+    pub complete: bool,
 }
